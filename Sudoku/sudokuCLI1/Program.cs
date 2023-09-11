@@ -20,7 +20,7 @@ namespace sudokuCLI1
                 Meret = Convert.ToInt32(Math.Sqrt(sor.Length));
             }
 
-          
+
 
             public void Kirajzol()
             {
@@ -45,17 +45,34 @@ namespace sudokuCLI1
 
         static void Main(string[] args)
         {
-            List<Feladvany> feladvanyLista=new List<Feladvany>();
+            List<Feladvany> feladvanyLista = new List<Feladvany>();
             StreamReader sr = new StreamReader("feladvanyok.txt");
             string sor = "";
-            int meret = 0;
             while (!sr.EndOfStream)
             {
-                sor= sr.ReadLine();
+                sor = sr.ReadLine();
                 feladvanyLista.Add(new Feladvany(sor));
             }
 
             Console.WriteLine($"3. feladat: Beolvasva {feladvanyLista.Count} feladvány ");
+            Console.Write("4. feladat: Kérem a feladvány méretét [4..9]: ");
+            int bekertSzam = 0;
+
+            bekertSzam = int.Parse(Console.ReadLine());
+            while (bekertSzam > 9 || bekertSzam < 4)
+            {
+                Console.Write("4. feladat: Kérem a feladvány méretét [4..9]: ");
+                bekertSzam = int.Parse(Console.ReadLine());
+            }
+            int count = 0;
+            foreach (var item in feladvanyLista)
+            {
+                if (item.Meret==bekertSzam)
+                {
+                    count++;
+                }
+            }
+            Console.WriteLine($"{bekertSzam}x{bekertSzam} méretű feladványból {count} darab van tárolva");
             Console.ReadKey();
         }
     }
