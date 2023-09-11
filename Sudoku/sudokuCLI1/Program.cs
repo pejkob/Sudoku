@@ -87,8 +87,20 @@ namespace sudokuCLI1
             Console.WriteLine($"{bekertSzam}x{bekertSzam} méretű feladványból {count} darab van tárolva");
 
             int kivalasztottSorszam=rnd.Next(count);
-
+            Console.WriteLine("5. feladat: A kiválasztott feladvány:");
             Console.WriteLine(kivalasztottFeladvanyok[kivalasztottSorszam].Kezdo);
+            double nullak = 0;
+            double sorLength = Math.Pow(kivalasztottFeladvanyok[kivalasztottSorszam].Meret,2);
+            foreach (var mezo in kivalasztottFeladvanyok[kivalasztottSorszam].Kezdo)
+            {
+                if (mezo=='0')
+                {
+                    nullak++;
+                }
+            }
+            double arany =nullak / sorLength * 100;
+            int IntArany = Convert.ToInt32(arany);
+            Console.WriteLine($"6. feladat: A feladvány kitöltöttsége: {IntArany}%");
             Console.ReadKey();
         }
     }
