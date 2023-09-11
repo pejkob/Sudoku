@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace sudokuCLI1
 {
@@ -18,6 +19,8 @@ namespace sudokuCLI1
                 Kezdo = sor;
                 Meret = Convert.ToInt32(Math.Sqrt(sor.Length));
             }
+
+          
 
             public void Kirajzol()
             {
@@ -39,10 +42,21 @@ namespace sudokuCLI1
             }
         }
 
+
         static void Main(string[] args)
         {
+            List<Feladvany> feladvanyLista=new List<Feladvany>();
+            StreamReader sr = new StreamReader("feladvanyok.txt");
+            string sor = "";
+            int meret = 0;
+            while (!sr.EndOfStream)
+            {
+                sor= sr.ReadLine();
+                feladvanyLista.Add(new Feladvany(sor));
+            }
 
-
+            Console.WriteLine($"3. feladat: Beolvasva {feladvanyLista.Count} feladvány ");
+            Console.ReadKey();
         }
     }
 }
