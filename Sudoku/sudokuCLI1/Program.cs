@@ -20,7 +20,10 @@ namespace sudokuCLI1
                 Meret = Convert.ToInt32(Math.Sqrt(sor.Length));
             }
 
-
+            public override string ToString()
+            {
+                return base.ToString();
+            }
 
             public void Kirajzol()
             {
@@ -41,18 +44,25 @@ namespace sudokuCLI1
                 }
             }
         }
-
-
-        static void Main(string[] args)
+        static List<Feladvany> feladvanyLista = new List<Feladvany>();
+        static Random rnd= new Random();
+        public static void Beolvasas()
         {
-            List<Feladvany> feladvanyLista = new List<Feladvany>();
             StreamReader sr = new StreamReader("feladvanyok.txt");
             string sor = "";
+
+
             while (!sr.EndOfStream)
             {
                 sor = sr.ReadLine();
                 feladvanyLista.Add(new Feladvany(sor));
             }
+        }
+
+        static void Main(string[] args)
+        {
+            Beolvasas();
+
 
             Console.WriteLine($"3. feladat: Beolvasva {feladvanyLista.Count} feladvány ");
             Console.Write("4. feladat: Kérem a feladvány méretét [4..9]: ");
@@ -65,14 +75,20 @@ namespace sudokuCLI1
                 bekertSzam = int.Parse(Console.ReadLine());
             }
             int count = 0;
+            List<Feladvany> kivalasztottFeladvanyok = new List<Feladvany>();
             foreach (var item in feladvanyLista)
             {
-                if (item.Meret==bekertSzam)
+                if (item.Meret == bekertSzam)
                 {
+                    kivalasztottFeladvanyok.Add(new Feladvany(item.Kezdo));
                     count++;
                 }
             }
             Console.WriteLine($"{bekertSzam}x{bekertSzam} méretű feladványból {count} darab van tárolva");
+
+            int kivalasztottSorszam=rnd.Next(count);
+
+            Console.WriteLine(kivalasztottFeladvanyok[kivalasztottSorszam].Kezdo);
             Console.ReadKey();
         }
     }
