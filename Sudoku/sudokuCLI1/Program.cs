@@ -7,43 +7,44 @@ using System.IO;
 
 namespace sudokuCLI1
 {
-    internal class Program
+    class Feladvany
     {
-        class Feladvany
+        public string Kezdo { get; private set; }
+        public int Meret { get; private set; }
+
+        public Feladvany(string sor)
         {
-            public string Kezdo { get; private set; }
-            public int Meret { get; private set; }
+            Kezdo = sor;
+            Meret = Convert.ToInt32(Math.Sqrt(sor.Length));
+        }
 
-            public Feladvany(string sor)
-            {
-                Kezdo = sor;
-                Meret = Convert.ToInt32(Math.Sqrt(sor.Length));
-            }
+        public override string ToString()
+        {
+            return base.ToString();
+        }
 
-            public override string ToString()
+        public void Kirajzol()
+        {
+            for (int i = 0; i < Kezdo.Length; i++)
             {
-                return base.ToString();
-            }
-
-            public void Kirajzol()
-            {
-                for (int i = 0; i < Kezdo.Length; i++)
+                if (Kezdo[i] == '0')
                 {
-                    if (Kezdo[i] == '0')
-                    {
-                        Console.Write(".");
-                    }
-                    else
-                    {
-                        Console.Write(Kezdo[i]);
-                    }
-                    if (i % Meret == Meret - 1)
-                    {
-                        Console.WriteLine();
-                    }
+                    Console.Write(".");
+                }
+                else
+                {
+                    Console.Write(Kezdo[i]);
+                }
+                if (i % Meret == Meret - 1)
+                {
+                    Console.WriteLine();
                 }
             }
         }
+    }
+    internal class Program
+    {
+        
         static List<Feladvany> feladvanyLista = new List<Feladvany>();
         static Random rnd= new Random();
         public static void Beolvasas()
@@ -93,7 +94,7 @@ namespace sudokuCLI1
             double sorLength = Math.Pow(kivalasztottFeladvanyok[kivalasztottSorszam].Meret,2);
             foreach (var mezo in kivalasztottFeladvanyok[kivalasztottSorszam].Kezdo)
             {
-                if (mezo=='0')
+                if (mezo!='0')
                 {
                     nullak++;
                 }
@@ -101,6 +102,9 @@ namespace sudokuCLI1
             double arany =nullak / sorLength * 100;
             int IntArany = Convert.ToInt32(arany);
             Console.WriteLine($"6. feladat: A feladvány kitöltöttsége: {IntArany}%");
+            Console.WriteLine("7. feladat: A feladvány kirajzolva: ");
+            kivalasztottFeladvanyok[kivalasztottSorszam].Kirajzol();
+           
             Console.ReadKey();
         }
     }
