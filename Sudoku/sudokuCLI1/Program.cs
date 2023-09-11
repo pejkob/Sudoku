@@ -58,6 +58,7 @@ namespace sudokuCLI1
                 sor = sr.ReadLine();
                 feladvanyLista.Add(new Feladvany(sor));
             }
+            sr.Close();
         }
 
         static void Main(string[] args)
@@ -104,7 +105,14 @@ namespace sudokuCLI1
             Console.WriteLine($"6. feladat: A feladvány kitöltöttsége: {IntArany}%");
             Console.WriteLine("7. feladat: A feladvány kirajzolva: ");
             kivalasztottFeladvanyok[kivalasztottSorszam].Kirajzol();
-           
+            string fileName = "sudoku" + bekertSzam + ".txt";
+            StreamWriter sw = new StreamWriter(fileName);
+            foreach (var item in kivalasztottFeladvanyok)
+            {
+                sw.WriteLine(item.Kezdo);
+            }
+            sw.Close();
+            Console.WriteLine($"8. feladat: {fileName} állomány {count} darab feladvánnyal létrehozva");
             Console.ReadKey();
         }
     }
